@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+#Copyright (c) 2020 Priti Chattopadhyay
+
+PRIT_ADD=$HOME/lf/prit
+cmd="$1"
+
+shift
+if which $PRIT_ADD/prit-$cmd-script > /dev/null
+then
+	exec $PRIT_ADD/prit-$cmd-script "$@"
+fi
+
+if which $PRIT_ADD/prit-$cmd > /dev/null
+then
+	exec $PRIT_ADD/prit-$cmd "$@"
+fi

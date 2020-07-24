@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+#Copyright (c) 2020 Priti Chattopadhyay
+
+PRIT_DIR=".prit"
+
+die () {
+	echo "$@" >&2
+	exit 1
+}
+
+check_setup () {
+	if [ -d $PRIT_DIR ]; then
+		true
+	elif [ "$PWD" = / ]; then
+		false
+	else
+		(cd .. && check_setup)
+	fi
+}
+
+check_setup || die 'Not a Prit Project! Please run: prit init'
+

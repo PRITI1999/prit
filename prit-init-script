@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+#Copyright (c) 2020 Priti Chattopadhyay
+
+PRIT_ADD=~/lf/prit
+
+`chmod u+x -R $PRIT_ADD/`
+`mkdir $PWD/.prit`
+echo "Initialized an empty Prit Project in $PWD/.prit/"

@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+#Copyright (c) 2020 Priti Chattopadhyay
+
+PRIT_ADD=$HOME/lf/prit
+
+. $PRIT_ADD/prit-check-setup
+
+usage () {
+	die 'prit analyze [-n] <tool-name>'
+}
+
+incorrect_option () {
+	die 'Option' $1 'is not supported'
+}
+
+while case "$#" in 0) usage ;; esac
+do
+	case "$1" in
+    	-n) shift
+        	case "$#" in
+        	0) usage ;;
+        	*) echo $1
+           	exit ;;
+        	esac
+        	;;
+	-*) incorrect_option $1 ;;
+
+    	*)  echo $1
+	break
+        ;;
+    	esac
+    	shift
+done
+
