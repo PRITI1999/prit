@@ -3,16 +3,14 @@
 #Copyright (c) 2020 Priti Chattopadhyay
 
 PRIT_ADD=$HOME/lf/prit
-
-. $PRIT_ADD/prit-check-setup
+PRIT_DIR=.prit
+. $PRIT_ADD/prit-common 
 
 usage () {
 	die 'prit analyze [-n] <tool-name>'
 }
 
-incorrect_option () {
-	die 'Option' $1 'is not supported'
-}
+check_dir "$PRIT_DIR" || die 'Not a Prit Project! Run: prit init'
 
 while case "$#" in 0) usage ;; esac
 do
@@ -20,13 +18,20 @@ do
     	-n) shift
         	case "$#" in
         	0) usage ;;
-        	*) echo $1
+        	*) for arg in "$@"
+		   do
+			$PRIT_ADD/prit-setup-tool $arg 
+		   done
            	exit ;;
         	esac
         	;;
-	-*) incorrect_option $1 ;;
+	-*)  die 'Option' $1 'is not supported';;
 
-    	*)  echo $1
+    	*) for arg in "$@"
+	   do	
+		check_dir "$PRIT_DIR/.prit-$arg" || 
+			die "$arg is not setup. Use -n for new tool" 
+	   done
 	break
         ;;
     	esac

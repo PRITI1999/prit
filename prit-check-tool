@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+#Copyright (c) 2020 Priti Chattopadhyay
+
+PRIT_ADD=$HOME/lf/prit
+
+tool=$1
+
+
