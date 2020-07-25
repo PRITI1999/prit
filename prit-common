@@ -19,7 +19,7 @@ check_dir () {
 
 path () {
 	if [ -d $1 ]; then
-		echo "${PWD%/}/$1"
+		echo "${PWD%/}/$1/"
 	elif [ "$PWD" = / ]; then
 		false
 	else

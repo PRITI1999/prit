@@ -2,9 +2,8 @@
 #
 #Copyright (c) 2020 Priti Chattopadhyay
 
-PRIT_ADD=$HOME/lf/prit
 PRIT_DIR=.prit
-. $PRIT_ADD/prit-common 
+. prit-common 
 
 usage () {
 	die 'prit analyze [-n] <tool-name>'
@@ -20,7 +19,8 @@ do
         	0) usage ;;
         	*) for arg in "$@"
 		   do
-			$PRIT_ADD/prit-setup-tool $arg 
+			prit-setup-tool $arg || die ''
+			prit-analysis $arg
 		   done
            	exit ;;
         	esac
@@ -31,6 +31,7 @@ do
 	   do	
 		check_dir "$PRIT_DIR/.prit-$arg" || 
 			die "$arg is not setup. Use -n for new tool" 
+		prit-analysis $arg
 	   done
 	break
         ;;

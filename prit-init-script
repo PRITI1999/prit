@@ -2,12 +2,9 @@
 #
 #Copyright (c) 2020 Priti Chattopadhyay
 
-PRIT_ADD=~/lf/prit
-
 if [ -d "$PWD/.prit" ]; then
 	echo 'Already a Prit Project!'
 	exit 1
 fi
-`chmod u+x -R $PRIT_ADD/`
 `mkdir $PWD/.prit`
 echo "Initialized an empty Prit Project in $PWD/.prit/"

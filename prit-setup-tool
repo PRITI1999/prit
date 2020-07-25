@@ -2,13 +2,12 @@
 #
 #Copyright (c) 2020 Priti Chattopadhyay
 
-PRIT_ADD=$HOME/lf/prit
 PRIT_DIR=.prit
-. $PRIT_ADD/prit-common 
+. prit-common 
 
 if check_dir "$PRIT_DIR/.prit-$1"; then
 	die "$1 is already setup. Remove -n option and try again!"
 else 
 	PRIT_DIR_PATH=$(path "$PRIT_DIR")
-	`mkdir $PRIT_DIR_PATH/.prit-$1`
+	`mkdir $PRIT_DIR_PATH$PRIT_DIR-$1`
 fi

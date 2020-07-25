@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+#Copyright (c) 2020 Priti Chattopadhyay
+
+PRIT_DIR=.prit
+. prit-common 
+
+generateProcessReport $1 $(path "$PRIT_DIR/$PRIT_DIR-$1")

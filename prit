@@ -2,14 +2,13 @@
 #
 #Copyright (c) 2020 Priti Chattopadhyay
 
-PRIT_ADD=$HOME/lf/prit
-. $PRIT_ADD/prit-common
+. prit-common
 cmd="$1"
 
 shift
-if which $PRIT_ADD/prit-$cmd-script > /dev/null
+if which prit-$cmd-script > /dev/null
 then
-	exec $PRIT_ADD/prit-$cmd-script "$@"
+	exec prit-$cmd-script "$@"
 else
 	die "$cmd is not a Prit command!"
 fi
