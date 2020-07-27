@@ -1,25 +1,41 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import sys
-import subprocess
 import os
+import re
 
-def rawReport(TOOL, PATH, CMD):
-    FILE = PATH + TOOL + "RawReport"
-    CMD = CMD + " 2> " + FILE
-    status = os.system(CMD)
+def rawReport(FILE, CMD):
+    status = os.system(CMD + " 2> " + FILE)
     return status
 
-def main() :
+def processReport(raw_file, track_file):
+    prev_rc_pair = -1
+    finding = ""
+    regex = re.compile(r'\d+.\d+')
+    with open(raw_file) as raw_fh:
+        for line in raw_fh:
+            obj = regex.search(line)
+            if obj != None and obj.group() != prev_rc_pair:
+                if len(finding) > 0:
+                    print(finding+"\n\n")
+                prev_rc_pair = obj.group()
+                finding = line
+            elif len(finding) > 0:
+                finding += line
+
+def main():
     TOOL = sys.argv[1]
     PATH = sys.argv[2]
-    CMD = raw_input("Enter the command for tool " + TOOL + ": ")
+    RAW_FILE = PATH + TOOL + "RawReport"
+    TRACK_FILE = PATH + TOOL + "TrackFindings"
+    CMD = input("Enter the command for tool " + TOOL + ": ")
     print("[PROCESS] Generating raw report...")
-    if rawReport(TOOL, PATH, CMD) != 0:
-        print("[ERROR] Not a valid command!\nExit with status code 1")
+    if rawReport(RAW_FILE, CMD) != 0:
+        print("[ERROR] Not a valid command!\n Exit with status code 1")
         exit(1)
     print("[COMPLETE] Raw report generated")
     print("[PROCESS] Processing report..")
+    processReport(RAW_FILE, TRACK_FILE)
 
 if __name__ == "__main__" :
 	main()
